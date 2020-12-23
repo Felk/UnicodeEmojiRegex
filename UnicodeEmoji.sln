@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeEmoji", "UnicodeEmoji\UnicodeEmoji.csproj", "{071DA955-3327-4FEC-83F1-03258B1D688C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicodeEmoji.Tests", "UnicodeEmoji.Tests\UnicodeEmoji.Tests.csproj", "{E020143F-1DCC-4247-97C5-83CC536FA936}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{071DA955-3327-4FEC-83F1-03258B1D688C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{071DA955-3327-4FEC-83F1-03258B1D688C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{071DA955-3327-4FEC-83F1-03258B1D688C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{071DA955-3327-4FEC-83F1-03258B1D688C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E020143F-1DCC-4247-97C5-83CC536FA936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E020143F-1DCC-4247-97C5-83CC536FA936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E020143F-1DCC-4247-97C5-83CC536FA936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E020143F-1DCC-4247-97C5-83CC536FA936}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
