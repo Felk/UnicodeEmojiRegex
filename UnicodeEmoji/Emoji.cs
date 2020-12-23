@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.FileProviders;
-using static UnicodeEmoji.UnicodeUtils;
 
 namespace UnicodeEmoji
 {
@@ -24,7 +23,7 @@ namespace UnicodeEmoji
             string emoji = CodepointsToRegex(GetCodepointsForProperty(emojiData, "Emoji"));
             string emojiModifier = CodepointsToRegex(GetCodepointsForProperty(emojiData, "Emoji_Modifier"));
             string tags = CodepointsToRegex(first: 0xE0020, last: 0xE007E);
-            string terminateTag = CodepointToRegex(0xE007F);
+            string terminateTag = CodepointsToRegex(new[] {0xE007F});
             return new Regex(@$"
                 {regionalIndicator} {regionalIndicator}
                 | {emoji}
@@ -38,6 +37,12 @@ namespace UnicodeEmoji
                     )*
             ", RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
         }
+
+        private static string CodepointsToRegex(int first, int last) =>
+            CodepointsToRegex(Enumerable.Range(first, last - first + 1));
+
+        private static string CodepointsToRegex(IEnumerable<int> codepoints) =>
+            Dafsa.FromWordsMinimized(codepoints.Select(char.ConvertFromUtf32)).ToRegex();
 
         private static IEnumerable<int> GetCodepointsForProperty(IEnumerable<EmojiDataEntry> data, string property)
         {
