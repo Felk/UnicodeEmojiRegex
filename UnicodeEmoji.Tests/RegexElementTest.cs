@@ -21,7 +21,8 @@ namespace UnicodeEmoji.Tests
         {
             RegexElement elem = new RegexElement.Or(ImmutableHashSet.Create<RegexElement>(
                 Char('a'), new RegexElement.Nothing()));
-            Assert.AreEqual("|a", elem.ToRegex());
+            string regex = elem.ToRegex();
+            Assert.IsTrue(regex == "|a" || regex == "a|");
             Assert.AreEqual("a?", elem.Optimize().ToRegex());
         }
 
