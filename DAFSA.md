@@ -130,8 +130,6 @@ The relevant optimizations for this example scenario are:
    e.g. replacing `(ax|ay|az)` with `a(x|y|z)`.
 2. Single characters in an alternation can be replaced with a character group,
    e.g. replacing `(a|b)` with `[ab]`.
-3. Consecutive codepoints in character groups can be expressed as ranges,
-   e.g. replacing `[abcdz]` with `[a-dz]`.
 
 Rearranging and applying these optimizations we get the promised regular expression `pe(ns?|t)|([hz]e|pa)n`.
 But these regex optimizations -- especially extracting common suffixes and prefixes -- are not trivial to implement.
