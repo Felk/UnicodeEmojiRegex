@@ -143,7 +143,11 @@ namespace UnicodeEmoji
                         child.ParentLinks.RemoveWhere(edge => edge.Node == parent);
 
                         // Merge everything into a single "or"-edge
-                        RegexElement elem = new RegexElement.Or(words).Optimize();
+                        RegexElement elem = new RegexElement.Or(words);
+                        // Optimizing here already should be redundant, but produces a slightly smaller regex.
+                        // Probably because the regex optimizations aren't robust against changes in processing order,
+                        // which in terms happens because the state elimination itself is order sensitive.
+                        elem = elem.Optimize();
                         parent.ChildrenLinks.Add(new Edge(elem, child));
                         child.ParentLinks.Add(new Edge(elem, parent));
                     }
@@ -157,7 +161,7 @@ namespace UnicodeEmoji
         }
 
         /// <summary>
-        /// Minimize the DAFSA by traversing it bottom-up and eliminating all but one state from each equivalece group.
+        /// Minimize the DAFSA by traversing it bottom-up and eliminating all but one state from each equivalence group.
         /// Two states are equivalent if they have the same outgoing edges, meaning they have the same behaviour.
         /// </summary>
         private void Minimize()

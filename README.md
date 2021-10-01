@@ -2,6 +2,8 @@
 This project generates **UTF-16 based** regular expressions to find emojis.
 It currently supports _UNICODE EMOJI 13.1_ as specified in the [Unicode® Technical Standard #51](https://www.unicode.org/reports/tr51/).
 
+See [DAFSA.md](DAFSA.md) for a theoretical explanation on how these are generated.
+
 ## Superset of possible emoji
 
 A regular expression that matches a superset of all possibly valid emojis as specified in
