@@ -12,8 +12,8 @@ namespace UnicodeEmoji.Tests
         {
             RegexElement.Or elem = new(ImmutableHashSet.Create<RegexElement>(
                 Char('a'), Char('b'), Char('c')));
-            Assert.AreEqual("a|b|c", elem.ToRegex());
-            Assert.AreEqual("[a-c]", elem.Optimize().ToRegex());
+            Assert.That(elem.ToRegex(), Is.EqualTo("a|b|c"));
+            Assert.That(elem.Optimize().ToRegex(), Is.EqualTo("[a-c]"));
         }
 
         [Test]
@@ -22,16 +22,16 @@ namespace UnicodeEmoji.Tests
             RegexElement elem = new RegexElement.Or(ImmutableHashSet.Create<RegexElement>(
                 Char('a'), new RegexElement.Nothing()));
             string regex = elem.ToRegex();
-            Assert.IsTrue(regex == "|a" || regex == "a|");
-            Assert.AreEqual("a?", elem.Optimize().ToRegex());
+            Assert.That(regex is "|a" or "a|", Is.True);
+            Assert.That(elem.Optimize().ToRegex(), Is.EqualTo("a?"));
         }
 
         [Test]
         public void NestedMaybe()
         {
             RegexElement elem = new RegexElement.Maybe(new RegexElement.Maybe(Char('a')));
-            Assert.AreEqual("(?:a?)?", elem.ToRegex());
-            Assert.AreEqual("a?", elem.Optimize().ToRegex());
+            Assert.That(elem.ToRegex(), Is.EqualTo("(?:a?)?"));
+            Assert.That(elem.Optimize().ToRegex(), Is.EqualTo("a?"));
         }
 
         [Test]
@@ -42,13 +42,12 @@ namespace UnicodeEmoji.Tests
                 new RegexElement.Nothing(),
                 new RegexElement.Sequence(ImmutableList.Create<RegexElement>(Char('c'), Char('d'))),
                 new RegexElement.Nothing()));
-            Assert.AreEqual("abcd", elem.ToRegex());
+            Assert.That(elem.ToRegex(), Is.EqualTo("abcd"));
             RegexElement optimized = elem.Optimize();
-            Assert.AreEqual("abcd", optimized.ToRegex());
-            Assert.IsInstanceOf<RegexElement.Sequence>(optimized);
-            Assert.AreEqual(
-                ImmutableList.Create<RegexElement>(Char('a'), Char('b'), Char('c'), Char('d')),
-                ((RegexElement.Sequence) optimized).Elements);
+            Assert.That(optimized.ToRegex(), Is.EqualTo("abcd"));
+            Assert.That(optimized, Is.InstanceOf<RegexElement.Sequence>());
+            Assert.That(((RegexElement.Sequence) optimized).Elements, Is.EqualTo(
+                ImmutableList.Create<RegexElement>(Char('a'), Char('b'), Char('c'), Char('d'))));
         }
     }
 }
